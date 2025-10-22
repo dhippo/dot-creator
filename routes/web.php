@@ -11,6 +11,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route pour afficher l'interface du simulateur (dans l'iframe)
+Route::get('/video-simulator', function () {
+    return view('video-simulator');
+})->name('video-simulator');
+
 Route::post('/lang-switch', function (Request $request) {
     $locale = $request->string('locale')->toString();
     if (in_array($locale, ['en','fr'], true)) {
@@ -27,10 +32,7 @@ Route::middleware([
 
     Route::get('/dashboard', DotDashboard::class)->name('dashboard');
 
-    // Route pour afficher l'interface du simulateur (dans l'iframe)
-    Route::get('/video-simulator', function () {
-        return view('video-simulator');
-    })->name('video-simulator');
+
 
     // Route API pour convertir WebM → MP4
     Route::post('/api/convert-webm', [VideoConverterController::class, 'convert'])
